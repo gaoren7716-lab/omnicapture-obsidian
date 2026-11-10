@@ -1,0 +1,11 @@
+fastapi>=0.110.0
+uvicorn>=0.28.0
+pillow>=10.0.0
+pynput>=1.7.6
+requests>=2.31.0
+mss>=9.0.1
+pystray>=0.19.5
+pywin32>=306
+winocr>=0.0.15
+rapidocr_onnxruntime>=1.3.0
+numpy>=1.24.0

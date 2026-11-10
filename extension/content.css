@@ -1,0 +1,121 @@
+/* OmniCapture Floating Toolbar & Highlighting */
+
+.omni-capture-bubble {
+  position: absolute;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #1e1e2ecc;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid #45475a;
+  border-radius: 8px;
+  padding: 5px 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft YaHei", sans-serif;
+  font-size: 13px;
+  color: #cdd6f4;
+  user-select: none;
+  animation: omni-fade-in 0.15s ease-out;
+}
+
+@keyframes omni-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.omni-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #313244;
+  border: none;
+  border-radius: 6px;
+  color: #cdd6f4;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.omni-btn:hover {
+  background: #45475a;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.omni-btn-primary {
+  background: #7c3aed;
+  color: #ffffff;
+}
+
+.omni-btn-primary:hover {
+  background: #6d28d9;
+}
+
+.omni-annotation-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  background: #181825;
+  border-radius: 6px;
+  margin-top: 6px;
+  width: 260px;
+}
+
+.omni-annotation-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: #1e1e2e;
+  border: 1px solid #45475a;
+  border-radius: 4px;
+  color: #cdd6f4;
+  font-size: 12px;
+  padding: 6px 8px;
+  outline: none;
+  resize: vertical;
+  min-height: 50px;
+}
+
+.omni-annotation-input:focus {
+  border-color: #7c3aed;
+}
+
+/* Toast 通知 */
+.omni-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #1e1e2ef0;
+  border: 1px solid #a6e3a1;
+  color: #a6e3a1;
+  padding: 10px 16px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  animation: omni-toast-slide 0.25s ease-out;
+}
+
+@keyframes omni-toast-slide {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 网页高亮文本样式 */
+mark.omni-highlight {
+  background-color: #fde04780;
+  color: inherit;
+  border-bottom: 2px solid #eab308;
+  border-radius: 2px;
+  padding: 1px 2px;
+}

@@ -1,0 +1,20 @@
+{
+  "obsidian_vault_path": "F:/1 内容创作/5 自媒体Obsidian库",
+  "daily_notes_folder": "自媒体素材/每日闪记",
+  "attachments_folder": "自媒体素材/attachments",
+  "inbox_folder": "自媒体素材/收件箱",
+  "save_mode": "daily_append",
+  "server_host": "127.0.0.1",
+  "server_port": 27123,
+  "hotkeys": {
+    "quick_jot": "<alt>+j",
+    "screen_capture": "<alt>+x"
+  },
+  "ai": {
+    "enabled": false,
+    "provider": "gemini",
+    "api_key": "",
+    "base_url": "https://generativelanguage.googleapis.com/v1beta",
+    "model": "gemini-1.5-flash"
+  }
+}

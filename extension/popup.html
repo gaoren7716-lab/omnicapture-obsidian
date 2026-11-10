@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>OmniCapture for Obsidian</title>
+  <style>
+    body {
+      width: 320px;
+      margin: 0;
+      padding: 14px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft YaHei", sans-serif;
+      background: #1e1e2e;
+      color: #cdd6f4;
+      box-sizing: border-box;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #313244;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+    .title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #cdd6f4;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #f38ba8;
+      display: inline-block;
+    }
+    .status-dot.online {
+      background: #a6e3a1;
+      box-shadow: 0 0 6px #a6e3a1;
+    }
+    .status-text {
+      font-size: 11px;
+      color: #a6adc8;
+    }
+    .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: #89b4fa;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      background: #181825;
+      border: 1px solid #45475a;
+      border-radius: 6px;
+      color: #cdd6f4;
+      padding: 8px;
+      font-size: 12px;
+      resize: vertical;
+      min-height: 60px;
+      outline: none;
+      margin-bottom: 8px;
+    }
+    textarea:focus {
+      border-color: #7c3aed;
+    }
+    .btn {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      margin-bottom: 6px;
+    }
+    .btn-primary {
+      background: #7c3aed;
+      color: #ffffff;
+    }
+    .btn-primary:hover {
+      background: #6d28d9;
+    }
+    .btn-secondary {
+      background: #313244;
+      color: #cdd6f4;
+    }
+    .btn-secondary:hover {
+      background: #45475a;
+    }
+    .footer-hint {
+      font-size: 10px;
+      color: #6c7086;
+      text-align: center;
+      margin-top: 10px;
+      line-height: 1.4;
+    }
+    .status-msg {
+      font-size: 11px;
+      padding: 6px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="title">
+      <span>⚡ OmniCapture</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:5px;">
+      <span class="status-dot" id="status-dot"></span>
+      <span class="status-text" id="status-text">检测服务中...</span>
+    </div>
+  </div>
+
+  <div id="status-msg" class="status-msg"></div>
+
+  <div class="section-title">💡 随手闪记</div>
+  <textarea id="jot-input" placeholder="有新的想法？直接打在这里存入 Obsidian..."></textarea>
+  <button class="btn btn-primary" id="btn-save-jot">存入今日日记</button>
+
+  <div style="height: 10px;"></div>
+
+  <div class="section-title">📑 网页操作</div>
+  <button class="btn btn-secondary" id="btn-clip-full">一键剪藏当前网页全文</button>
+  <button class="btn btn-secondary" id="btn-screenshot-tab">截取当前网页并存入</button>
+
+  <div class="footer-hint">
+    桌面全局快捷键：<br>
+    <b>Alt+J</b> 呼出闪念速记 | <b>Alt+X</b> 截图标注
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
