@@ -7,61 +7,69 @@ THEMES = {
     "dark": {
         "name": "dark",
         "label": "深色石墨",
-        "bg_root": "#1A1B22",          # 沉浸暗夜主背景
-        "bg_outer_border": "#323440",  # 细腻外框描边
-        "bg_card": "#22242D",          # 内容卡片层
-        "bg_input": "#14151A",         # 文本输入凹槽
-        "input_border": "#2E303C",     # 输入框微边框
-        "text_primary": "#FFFFFF",     # 顶层标题文字 (极高清晰度)
-        "text_body": "#F0F2FA",        # 主体文本 (极高清晰度，不发虚)
-        "text_secondary": "#B5B8C8",   # 次级指引文字
-        "text_muted": "#7A7E94",       # 占位符/热键提示
+        "bg_root": "#1E2028",          # 温暖深石墨灰 (Apple macOS Sequoia 质感)
+        "bg_outer_border": "#363948",  # 外边框微描边
+        "bg_card": "#272A36",          # 悬浮卡片层
+        "bg_input": "#181920",         # 凹槽输入区 (柔和深邃而不死黑)
+        "input_border": "#343746",     # 输入框边缘
+        "text_primary": "#FFFFFF",     # 纯白一级标题 (超高清晰度)
+        "text_body": "#F2F4FC",        # 高清正文
+        "text_secondary": "#A6A9BC",   # 次级文字
+        "text_muted": "#7A7E94",       # 占位/热键提示
         "accent_blue": "#0A84FF",      # 苹果蓝
-        "accent_green": "#30D158",     # 苹果绿
+        "accent_blue_hover": "#0071E3",
+        "accent_green": "#34C759",     # 苹果精炼翡翠绿 (柔和高端，非死板荧光绿)
+        "accent_green_hover": "#30B752",
         "accent_orange": "#FF9F0A",    # 苹果橙
-        "tag_bg": "#2A2C38",           # 标签常态背景
-        "tag_fg": "#7FB7FF",           # 标签文字
-        "tag_active_bg": "#0A84FF",    # 选中标签背景
-        "tag_active_fg": "#FFFFFF",    # 选中标签文字
-        "btn_primary_bg": "#0A84FF",   # 主按钮背景
+        "tag_bg": "#2E3140",           # 药丸标签常态底色
+        "tag_hover": "#3A3D50",
+        "tag_fg": "#88BCFF",           # 标签字
+        "tag_active_bg": "#0A84FF",    # 激活药丸底色
+        "tag_active_hover": "#0071E3",
+        "tag_active_fg": "#FFFFFF",    # 激活药丸字
+        "btn_pill_bg": "#34C759",      # 提交药丸主色
+        "btn_pill_hover": "#30B752",
+        "btn_pill_fg": "#FFFFFF",
+        "btn_primary_bg": "#0A84FF",
+        "btn_primary_hover": "#0071E3",
         "btn_primary_fg": "#FFFFFF",
-        "btn_success_bg": "#30D158",   # 存入按钮背景
-        "btn_success_fg": "#0E1C12",
-        "btn_neutral_bg": "#2E313E",   # 中性按钮背景
-        "btn_neutral_fg": "#E2E5F2",
-        "traffic_close": "#FF5F56",    # 红
-        "traffic_min": "#FFBD2E",      # 黄
-        "traffic_max": "#27C93F",      # 绿
+        "btn_neutral_bg": "#2E3140",   # 中性功能胶囊底
+        "btn_neutral_hover": "#3A3D50",
+        "btn_neutral_fg": "#E8EAF5",
         "theme_toggle_icon": "☀️ 浅色模式",
     },
     "light": {
         "name": "light",
         "label": "银白晨露",
-        "bg_root": "#F2F2F7",          # 苹果浅灰底色
-        "bg_outer_border": "#D1D1D6",  # 精致边框
+        "bg_root": "#F2F2F7",          # 苹果官方系统浅灰
+        "bg_outer_border": "#D1D1D6",  # 细腻浅灰边框
         "bg_card": "#FFFFFF",          # 纯净白卡片
-        "bg_input": "#FAFAFC",         # 输入区域
-        "input_border": "#E5E5EA",     # 输入框轻边框
-        "text_primary": "#111113",     # 极黑高清晰度标题
+        "bg_input": "#FFFFFF",         # 纯净白输入卡
+        "input_border": "#E5E5EA",     # 输入框边缘
+        "text_primary": "#111113",     # 深黑一级标题 (高清晰度)
         "text_body": "#1D1D1F",        # 极清晰正文
         "text_secondary": "#48484A",   # 次级文字
-        "text_muted": "#8E8E93",       # 占位与热键
+        "text_muted": "#8E8E93",       # 占位/热键
         "accent_blue": "#007AFF",      # 苹果官方蓝
+        "accent_blue_hover": "#0068D6",
         "accent_green": "#34C759",     # 苹果官方绿
+        "accent_green_hover": "#2DB84D",
         "accent_orange": "#FF9500",    # 苹果官方橙
-        "tag_bg": "#EBEBF0",           # 标签浅灰底
-        "tag_fg": "#0066CC",           # 标签字
-        "tag_active_bg": "#007AFF",    # 选中标签背景
-        "tag_active_fg": "#FFFFFF",    # 选中标签文字
-        "btn_primary_bg": "#007AFF",   # 主按钮背景
+        "tag_bg": "#E5E5EA",           # 药丸浅灰底
+        "tag_hover": "#DADAE0",
+        "tag_fg": "#0066CC",
+        "tag_active_bg": "#007AFF",
+        "tag_active_hover": "#0068D6",
+        "tag_active_fg": "#FFFFFF",
+        "btn_pill_bg": "#34C759",
+        "btn_pill_hover": "#2DB84D",
+        "btn_pill_fg": "#FFFFFF",
+        "btn_primary_bg": "#007AFF",
+        "btn_primary_hover": "#0068D6",
         "btn_primary_fg": "#FFFFFF",
-        "btn_success_bg": "#34C759",   # 存入按钮背景
-        "btn_success_fg": "#FFFFFF",
-        "btn_neutral_bg": "#E5E5EA",   # 中性按钮
-        "btn_neutral_fg": "#1C1C1E",
-        "traffic_close": "#FF5F56",
-        "traffic_min": "#FFBD2E",
-        "traffic_max": "#27C93F",
+        "btn_neutral_bg": "#E5E5EA",
+        "btn_neutral_hover": "#DADAE0",
+        "btn_neutral_fg": "#1D1D1F",
         "theme_toggle_icon": "🌙 深色模式",
     }
 }
