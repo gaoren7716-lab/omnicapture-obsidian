@@ -7,71 +7,99 @@
     body {
       width: 320px;
       margin: 0;
-      padding: 14px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft YaHei", sans-serif;
-      background: #1e1e2e;
-      color: #cdd6f4;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Microsoft YaHei UI", sans-serif;
+      background: #18191E;
+      color: #F0F2FA;
       box-sizing: border-box;
+      border-radius: 12px;
     }
     .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #313244;
-      padding-bottom: 10px;
-      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 12px;
+      margin-bottom: 14px;
     }
+    .traffic-lights {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-right: 6px;
+    }
+    .traffic-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot-red { background: #FF5F56; }
+    .dot-yellow { background: #FFBD2E; }
+    .dot-green { background: #27C93F; }
+
     .title {
-      font-size: 14px;
-      font-weight: bold;
-      color: #cdd6f4;
+      font-size: 13px;
+      font-weight: 700;
+      color: #FFFFFF;
       display: flex;
       align-items: center;
       gap: 6px;
     }
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 3px 8px;
+      border-radius: 12px;
+    }
     .status-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: #f38ba8;
+      background: #FF453A;
       display: inline-block;
     }
     .status-dot.online {
-      background: #a6e3a1;
-      box-shadow: 0 0 6px #a6e3a1;
+      background: #30D158;
+      box-shadow: 0 0 8px rgba(48, 209, 88, 0.6);
     }
     .status-text {
       font-size: 11px;
-      color: #a6adc8;
+      color: #A0A2B0;
     }
     .section-title {
       font-size: 11px;
-      font-weight: 600;
-      color: #89b4fa;
-      text-transform: uppercase;
-      margin-bottom: 6px;
+      font-weight: 700;
+      color: #0A84FF;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
     }
     textarea {
       width: 100%;
       box-sizing: border-box;
-      background: #181825;
-      border: 1px solid #45475a;
-      border-radius: 6px;
-      color: #cdd6f4;
-      padding: 8px;
-      font-size: 12px;
+      background: #141519;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      color: #FFFFFF;
+      padding: 10px;
+      font-size: 13px;
+      font-family: inherit;
       resize: vertical;
-      min-height: 60px;
+      min-height: 65px;
       outline: none;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      transition: all 0.2s ease;
     }
     textarea:focus {
-      border-color: #7c3aed;
+      border-color: #0A84FF;
+      box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.25);
     }
     .btn {
       width: 100%;
-      padding: 8px;
-      border-radius: 6px;
+      padding: 9px;
+      border-radius: 10px;
       border: none;
       font-size: 12px;
       font-weight: 600;
@@ -80,35 +108,41 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: all 0.15s ease;
-      margin-bottom: 6px;
+      transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-bottom: 8px;
+    }
+    .btn:active {
+      transform: scale(0.98);
     }
     .btn-primary {
-      background: #7c3aed;
-      color: #ffffff;
+      background: #0A84FF;
+      color: #FFFFFF;
+      box-shadow: 0 2px 10px rgba(10, 132, 255, 0.35);
     }
     .btn-primary:hover {
-      background: #6d28d9;
+      background: #0071E3;
     }
     .btn-secondary {
-      background: #313244;
-      color: #cdd6f4;
+      background: #252733;
+      color: #E1E2E8;
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
     .btn-secondary:hover {
-      background: #45475a;
+      background: #2E303E;
+      color: #FFFFFF;
     }
     .footer-hint {
-      font-size: 10px;
-      color: #6c7086;
+      font-size: 11px;
+      color: #7A7E94;
       text-align: center;
-      margin-top: 10px;
-      line-height: 1.4;
+      margin-top: 14px;
+      line-height: 1.5;
     }
     .status-msg {
       font-size: 11px;
-      padding: 6px;
-      border-radius: 4px;
-      margin-bottom: 8px;
+      padding: 8px;
+      border-radius: 8px;
+      margin-bottom: 10px;
       display: none;
     }
   </style>
@@ -116,29 +150,34 @@
 <body>
   <div class="header">
     <div class="title">
-      <span>⚡ OmniCapture</span>
+      <div class="traffic-lights">
+        <span class="traffic-dot dot-red"></span>
+        <span class="traffic-dot dot-yellow"></span>
+        <span class="traffic-dot dot-green"></span>
+      </div>
+      <span>OmniCapture</span>
     </div>
-    <div style="display:flex; align-items:center; gap:5px;">
+    <div class="status-badge">
       <span class="status-dot" id="status-dot"></span>
-      <span class="status-text" id="status-text">检测服务中...</span>
+      <span class="status-text" id="status-text">检测中</span>
     </div>
   </div>
 
   <div id="status-msg" class="status-msg"></div>
 
   <div class="section-title">💡 随手闪记</div>
-  <textarea id="jot-input" placeholder="有新的想法？直接打在这里存入 Obsidian..."></textarea>
-  <button class="btn btn-primary" id="btn-save-jot">存入今日日记</button>
+  <textarea id="jot-input" placeholder="输入灵感或待办，直接存入 Obsidian..."></textarea>
+  <button class="btn btn-primary" id="btn-save-jot">存入今日日记 ↵</button>
 
-  <div style="height: 10px;"></div>
+  <div style="height: 6px;"></div>
 
   <div class="section-title">📑 网页操作</div>
   <button class="btn btn-secondary" id="btn-clip-full">一键剪藏当前网页全文</button>
   <button class="btn btn-secondary" id="btn-screenshot-tab">截取当前网页并存入</button>
 
   <div class="footer-hint">
-    桌面全局快捷键：<br>
-    <b>Alt+J</b> 呼出闪念速记 | <b>Alt+X</b> 截图标注
+    全局快捷键：<br>
+    <b>Alt+J</b> 闪念速记 | <b>Alt+X</b> 截图标注/文字提取/翻译
   </div>
 
   <script src="popup.js"></script>

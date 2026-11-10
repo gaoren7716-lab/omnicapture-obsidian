@@ -13,6 +13,10 @@
   <img src="https://img.shields.io/badge/Obsidian-Native%20Compatible-7C3AED.svg?logo=obsidian" alt="Obsidian">
 </p>
 
+<p align="center">
+  <img src="./apple_style_dual_theme_preview.png" alt="OmniCapture Apple Sequoia UI Preview" width="90%">
+</p>
+
 ---
 
 ## 📖 项目愿景
@@ -34,6 +38,12 @@
 
 ### 1. 📸 随时全屏截图标注 (`Alt + X`)
 - **全局原生热键**：采用 Windows 内核级热键注册机制，0 冲突、不丢事件。
+- **全新 Apple Sequoia 双色系 UI**：
+  - 🌙 **深色石墨模式**：沉浸式暗黑毛玻璃质感，高对比度护眼排版；
+  - ☀️ **纯净白色模式**：通透晶莹的晨露白银灰质感，清爽干练；
+  - 顶栏一键无缝切换模式，并自动持久化记忆用户偏好；
+- **全弹窗自由平移拖拽**：所有弹出的窗口（闪念速记、文字提取、截图翻译）**均支持鼠标在标题栏自由拖动**，再也不会遮挡底层待查阅的屏幕信息！
+- **超清文字对比度**：采用微软雅黑 UI 高清抗锯齿字重与 Apple 原生系统对比色，彻底消除发虚发灰，字字清晰。
 - **丰富标注工具**：矩形框、指示箭头、自由画笔、马赛克（保护隐私）、撤销操作。
 - **多通道顺畅分支**：
   - **默认复制（顺手极速）**：选区内**双击鼠标**或敲击 **`Enter`**，直接复制带标注截图并退出，随时 `Ctrl+V` 粘贴；

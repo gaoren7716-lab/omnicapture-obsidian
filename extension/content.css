@@ -1,121 +1,134 @@
-/* OmniCapture Floating Toolbar & Highlighting */
+/* OmniCapture Floating Toolbar & Highlighting - Apple Sequoia Glassmorphism */
 
 .omni-capture-bubble {
   position: absolute;
   z-index: 2147483647;
   display: flex;
   align-items: center;
-  gap: 6px;
-  background: #1e1e2ecc;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid #45475a;
-  border-radius: 8px;
-  padding: 5px 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft YaHei", sans-serif;
+  gap: 8px;
+  background: rgba(28, 29, 36, 0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 20px;
+  padding: 6px 12px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.2);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Microsoft YaHei UI", sans-serif;
   font-size: 13px;
-  color: #cdd6f4;
+  color: #FFFFFF;
   user-select: none;
-  animation: omni-fade-in 0.15s ease-out;
+  animation: omni-fade-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes omni-fade-in {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(6px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .omni-btn {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  background: #313244;
-  border: none;
-  border-radius: 6px;
-  color: #cdd6f4;
-  padding: 4px 8px;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  color: #F0F2FA;
+  padding: 5px 11px;
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.18s ease;
   white-space: nowrap;
 }
 
 .omni-btn:hover {
-  background: #45475a;
-  color: #ffffff;
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
   transform: translateY(-1px);
 }
 
 .omni-btn-primary {
-  background: #7c3aed;
-  color: #ffffff;
+  background: #0A84FF;
+  border-color: #0A84FF;
+  color: #FFFFFF;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(10, 132, 255, 0.4);
 }
 
 .omni-btn-primary:hover {
-  background: #6d28d9;
+  background: #0071E3;
+  border-color: #0071E3;
 }
 
 .omni-annotation-box {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 8px;
-  background: #181825;
-  border-radius: 6px;
-  margin-top: 6px;
-  width: 260px;
+  gap: 8px;
+  padding: 10px;
+  background: rgba(20, 21, 26, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  margin-top: 8px;
+  width: 280px;
 }
 
 .omni-annotation-input {
   width: 100%;
   box-sizing: border-box;
-  background: #1e1e2e;
-  border: 1px solid #45475a;
-  border-radius: 4px;
-  color: #cdd6f4;
+  background: rgba(10, 11, 15, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-family: inherit;
   font-size: 12px;
-  padding: 6px 8px;
+  padding: 8px 10px;
   outline: none;
   resize: vertical;
-  min-height: 50px;
+  min-height: 55px;
 }
 
 .omni-annotation-input:focus {
-  border-color: #7c3aed;
+  border-color: #0A84FF;
+  box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.25);
 }
 
 /* Toast 通知 */
 .omni-toast {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: 28px;
+  right: 28px;
   z-index: 2147483647;
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: #1e1e2ef0;
-  border: 1px solid #a6e3a1;
-  color: #a6e3a1;
-  padding: 10px 16px;
-  border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-  font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", sans-serif;
+  gap: 10px;
+  background: rgba(28, 29, 36, 0.92);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(48, 209, 88, 0.4);
+  color: #30D158;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft YaHei UI", sans-serif;
   font-size: 13px;
-  font-weight: 600;
-  animation: omni-toast-slide 0.25s ease-out;
+  font-weight: 500;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  animation: omni-toast-slide 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes omni-toast-slide {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* 网页高亮文本样式 */
-mark.omni-highlight {
-  background-color: #fde04780;
-  color: inherit;
-  border-bottom: 2px solid #eab308;
+/* 高亮样式 */
+.omni-highlight {
+  background-color: rgba(255, 214, 10, 0.35) !important;
+  border-bottom: 2px solid #FFD60A !important;
+  cursor: pointer;
   border-radius: 2px;
-  padding: 1px 2px;
+  transition: background-color 0.2s ease;
+}
+
+.omni-highlight:hover {
+  background-color: rgba(255, 214, 10, 0.55) !important;
 }

@@ -4,6 +4,7 @@
   "attachments_folder": "自媒体素材/attachments",
   "inbox_folder": "自媒体素材/收件箱",
   "save_mode": "daily_append",
+  "theme": "dark",
   "server_host": "127.0.0.1",
   "server_port": 27123,
   "hotkeys": {
