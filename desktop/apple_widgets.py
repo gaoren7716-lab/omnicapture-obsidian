@@ -3,11 +3,15 @@ from PIL import Image, ImageDraw, ImageTk
 import ctypes
 
 def apply_apple_window_corners(window, radius=24):
-    """通过 Windows 原生 GDI 和 DWM 为无边框窗口赋予真正的物理圆角与阴影"""
+    """通过 Windows 原生 GDI 和 DWM 为顶层无边框窗口赋予真正的物理圆角与阴影"""
     try:
+        if not isinstance(window, (tk.Tk, tk.Toplevel)):
+            return
         window.update_idletasks()
         w = window.winfo_width()
         h = window.winfo_height()
+        if w < 100 or h < 50:
+            return
         hwnd = window.winfo_id()
         
         # 1. GDI 物理裁剪真实圆角

@@ -469,6 +469,9 @@ class ScreenCaptureTool:
         self.on_finish_callback = on_finish_callback
         self.writer = ObsidianWriter()
         self.window = None
+        self.toolbar_frame = None
+        self.crop_box = None
+        self.drawing_layers = []
 
     def start(self):
         try:
@@ -558,7 +561,7 @@ class ScreenCaptureTool:
             if x2 - x1 > 20 and y2 - y1 > 20:
                 self.crop_box = (x1, y1, x2, y2)
                 self.cropped_img = self.full_screenshot.crop(self.crop_box).copy()
-                self.show_toolbar(x2, y2)
+                self.show_toolbar(x1, y1, x2, y2)
             else:
                 self.close()
         elif self.current_tool and self.crop_box:
@@ -610,25 +613,38 @@ class ScreenCaptureTool:
             self.canvas.create_image(bx1, by1, anchor="nw", image=self.mosaic_tk, tags="annotation")
             self.drawing_layers.append(("mosaic", bx1, by1, mosaic_part))
 
-    def show_toolbar(self, x, y):
+    def show_toolbar(self, x1, y1, x2, y2):
         if self.toolbar_frame:
             self.toolbar_frame.destroy()
+            self.toolbar_frame = None
 
         th = ThemeManager.load_theme()
-        tb_w, tb_h = 640, 46
-        tb_x = min(max(10, x - tb_w), self.screen_w - tb_w - 10)
-        tb_y = y + 10 if y + tb_h + 20 < self.screen_h else y - tb_h - 10
+        tb_w, tb_h = 780, 42
+
+        # 智能对齐选区右侧，若溢出则对齐选区左侧，并严格限制在屏幕之内
+        tb_x = x2 - tb_w
+        if tb_x < 10:
+            tb_x = x1
+        tb_x = max(10, min(self.screen_w - tb_w - 10, tb_x))
+
+        # 纵向位置：优先位于选区下方，若屏幕底部空间不够则自动置于选区上方
+        if y2 + tb_h + 14 <= self.screen_h:
+            tb_y = y2 + 8
+        elif y1 - tb_h - 10 >= 0:
+            tb_y = y1 - tb_h - 8
+        else:
+            tb_y = max(10, y2 - tb_h - 8)
 
         self.toolbar_frame = tk.Frame(
             self.canvas,
             bg=th["bg_root"],
-            padx=10,
-            pady=5,
+            padx=8,
+            pady=4,
             highlightthickness=1,
-            highlightbackground=th["bg_outer_border"]
+            highlightbackground=th["bg_outer_border"],
+            cursor="arrow"
         )
-        self.canvas.create_window(tb_x, tb_y, anchor="nw", window=self.toolbar_frame)
-        apply_apple_window_corners(self.toolbar_frame, radius=18)
+        self.toolbar_window_id = self.canvas.create_window(tb_x, tb_y, anchor="nw", window=self.toolbar_frame)
 
         tools = [
             ("🟥 矩形", "rect"),
@@ -645,11 +661,11 @@ class ScreenCaptureTool:
                 font=("Microsoft YaHei UI", 9),
                 fg=th["text_body"],
                 bg=th["bg_root"],
-                padx=6,
-                pady=3,
+                padx=5,
+                pady=2,
                 cursor="hand2"
             )
-            btn.pack(side="left", padx=2)
+            btn.pack(side="left", padx=1)
             btn.bind("<Button-1>", lambda e, tid=tool_id: self.select_tool(tid))
             self.tool_btns[tool_id] = btn
 
@@ -660,39 +676,41 @@ class ScreenCaptureTool:
             fg=th["text_body"],
             bg=th["bg_root"],
             padx=4,
-            pady=3,
+            pady=2,
             cursor="hand2"
         )
-        undo_btn.pack(side="left", padx=2)
+        undo_btn.pack(side="left", padx=1)
         undo_btn.bind("<Button-1>", lambda e: self.undo())
+
+        tk.Label(self.toolbar_frame, text="|", fg=th["bg_outer_border"], bg=th["bg_root"]).pack(side="left", padx=3)
 
         ocr_btn = ApplePillButton(
             self.toolbar_frame,
             text="📝 提取文字",
             command=self.trigger_ocr_extraction,
-            width=90,
-            height=28,
+            width=86,
+            height=26,
             bg_color=th["bg_root"],
             pill_color=th["btn_neutral_bg"],
             hover_color=th["btn_neutral_hover"],
             text_color=th["accent_blue"],
             font=("Microsoft YaHei UI", 9, "bold")
         )
-        ocr_btn.pack(side="left", padx=3)
+        ocr_btn.pack(side="left", padx=2)
 
         trans_btn = ApplePillButton(
             self.toolbar_frame,
             text="🌐 翻译",
             command=self.trigger_translation,
-            width=70,
-            height=28,
+            width=66,
+            height=26,
             bg_color=th["bg_root"],
             pill_color=th["btn_neutral_bg"],
             hover_color=th["btn_neutral_hover"],
             text_color=th["accent_blue"],
             font=("Microsoft YaHei UI", 9, "bold")
         )
-        trans_btn.pack(side="left", padx=3)
+        trans_btn.pack(side="left", padx=2)
 
         tk.Label(self.toolbar_frame, text="|", fg=th["bg_outer_border"], bg=th["bg_root"]).pack(side="left", padx=3)
 
@@ -700,41 +718,41 @@ class ScreenCaptureTool:
             self.toolbar_frame,
             text="📋 复制(Enter)",
             command=self.copy_to_clipboard_and_close,
-            width=110,
-            height=28,
+            width=102,
+            height=26,
             bg_color=th["bg_root"],
             pill_color=th["btn_primary_bg"],
             hover_color=th["btn_primary_hover"],
             text_color=th["btn_primary_fg"],
             font=("Microsoft YaHei UI", 9, "bold")
         )
-        copy_btn.pack(side="left", padx=3)
+        copy_btn.pack(side="left", padx=2)
 
         save_btn = ApplePillButton(
             self.toolbar_frame,
             text="💾 存入Obsidian",
             command=self.save_to_obsidian,
-            width=115,
-            height=28,
+            width=110,
+            height=26,
             bg_color=th["bg_root"],
             pill_color=th["btn_pill_bg"],
             hover_color=th["btn_pill_hover"],
             text_color=th["btn_pill_fg"],
             font=("Microsoft YaHei UI", 9, "bold")
         )
-        save_btn.pack(side="left", padx=3)
+        save_btn.pack(side="left", padx=2)
 
         close_btn = tk.Label(
             self.toolbar_frame,
-            text=" ✕ ",
-            font=("Microsoft YaHei UI", 9, "bold"),
+            text="✕",
+            font=("Microsoft YaHei UI", 10, "bold"),
             fg="#FF5F56",
             bg=th["bg_root"],
-            padx=5,
-            pady=3,
+            padx=6,
+            pady=2,
             cursor="hand2"
         )
-        close_btn.pack(side="right", padx=2)
+        close_btn.pack(side="left", padx=2)
         close_btn.bind("<Button-1>", lambda e: self.close())
 
     def select_tool(self, tool_id):
