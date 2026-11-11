@@ -14,7 +14,13 @@
 </p>
 
 <p align="center">
-  <img src="./apple_style_dual_theme_preview.png" alt="OmniCapture Apple Sequoia UI Preview" width="90%">
+  <img src="./qiaomu_omnicapture_fusion_preview.png" alt="OmniCapture Version 3 Dual-Track Preview" width="95%"><br>
+  <em>版本 3：双轨自适应智能胶囊（全局划词直录 + 窗口上下文追溯 + 苹果原生双色系）</em>
+</p>
+<br>
+<p align="center">
+  <img src="./apple_style_dual_theme_preview.png" alt="OmniCapture Apple Sequoia UI Preview" width="90%"><br>
+  <em>Apple Sequoia 双色系（深色石墨 / 纯净白银）与可拖动自由悬浮窗</em>
 </p>
 
 ---
@@ -57,12 +63,26 @@
 - 自动推荐并挂载 **`[[Obsidian 双链主题]]`**；
 - 在 Obsidian 中自动排版为标准的官方 **`[!quote]` 对照卡片** 与 **`[!tip]` 洞察卡片**。
 
-### 3. 💡 全局闪念速记小窗 (`Alt + J`)
-- 类似 Spotlight / Raycast 的极简暗黑毛玻璃小窗；
-- 支持打字备忘、随手记录思考灵感；
-- 支持直接 `Ctrl+V` 粘贴图片（自动保存为附件并引用）；
-- 支持快捷标签芯片（`#灵感`、`#选题`、`#待办`、`#金句`）；
-- 按 `Ctrl+Enter` 秒存入今日日记，按 `Esc` 退出。
+### 3. 💡 全局双轨自适应智能胶囊 (`Alt + J` 版本 3)
+深度吸收乔木闪记等顶级知识捕获工具的核心交互优势，并与桌面级自动化与 Obsidian 原生生态深度融合：
+- 🎯 **全局划词免复制直录 (Selection-to-Jot)**：
+  - 在任意应用（PDF阅读器、微信、浏览器、IDE代码窗口、本地文档）中鼠标选中文本后，直接敲击 `Alt + J`；
+  - 核心引擎利用 Windows 原生系统序列号比对，**0 剪贴板污染**自动将选中内容装载为原话引用展示；
+  - 输入框自动聚焦，光标就绪，直接输入你的随想灵感，省去以往复制、呼出、粘贴的繁琐摩擦。
+- 🧭 **前台应用与窗口来源全自动追溯 (Context Tracking)**：
+  - 触发捕获时，自动读取活动窗口标题与进程信息（如 `Google Chrome`、`Microsoft Edge`、`VS Code`、`Adobe Acrobat` 等）；
+  - 窗口顶部实时显示来源徽标 `来源: Chrome - 网页标题`，入库后自动生成高保真溯源链接与标记。
+- 📎 **剪贴板截图智能感知附着 (Clipboard Sensing)**：
+  - 当剪贴板已有截图或复制的图片时，胶囊窗右上角自动亮起 `[📎 附带截图]` 徽章；
+  - 一键存入时自动在 Obsidian 附件目录生成高清图片，并在日记中无缝插入 Markdown 图片嵌入链接。
+- 📋 **智能任务待办格式化 (Todo Mode)**：
+  - 输入内容以 `- ` 或包含待办意图，或者点击快捷标签 `#待办` 时，自动格式化为可交互的 Markdown 任务清单项（`- [ ]`）。
+- 📥 **Obsidian 每日日记精准章节锚点落库 (Daily Anchor Flow)**：
+  - 自动检测并插入到日记指定二级标题下（如 `## 📥 每日闪念与素材捕捉`），并在下一个章节前精准收尾；
+  - 完美保障日记结构的整洁规范，不破坏每日笔记模板中的复盘、时间轴或总结等其它独立模块。
+- 🍎 **Apple Sequoia 极简设计语言**：
+  - 24px 原生实体圆角、14px 红黄绿红绿灯功能按键（带悬浮操作符）；
+  - 标题栏支持任意拖动与定位，深色石墨与纯净白银双色系一键无缝切换。
 
 ### 4. 🔖 浏览器划词高亮与批注（Chrome / Edge 扩展）
 - 在任何网页（微信公众号、知乎、技术文档、新闻）选中文本，立即在旁边浮现微型操作气泡：
@@ -138,11 +158,13 @@ run_desktop.bat
 系统配置文件位于根目录 `config.json`：
 ```json
 {
-  "obsidian_vault_path": "F:/1 内容创作/5 自媒体Obsidian库",
+  "obsidian_vault_path": "D:/Obsidian/MyVault",
   "daily_notes_folder": "自媒体素材/每日闪记",
   "attachments_folder": "自媒体素材/attachments",
   "inbox_folder": "自媒体素材/收件箱",
   "save_mode": "daily_append",
+  "daily_anchor_heading": "## 📥 每日闪念与素材捕捉",
+  "theme": "dark",
   "hotkeys": {
     "quick_jot": "<alt>+j",
     "screen_capture": "<alt>+x"
