@@ -35,6 +35,7 @@ except Exception:
 from obsidian_writer import ObsidianWriter
 from quick_jot import QuickJotWindow
 from screen_capture import ScreenCaptureTool
+from context_tracker import get_foreground_context, capture_selected_text
 
 class NativeWindowsHotkeys:
     """Windows 原生系统级快捷键注册器 (基于 RegisterHotKey，100% 避开输入法与软件拦截)"""
@@ -100,10 +101,18 @@ class OmniCaptureApp:
     def _process_queue(self):
         try:
             while not self.action_queue.empty():
-                action = self.action_queue.get_nowait()
-                if action == "jot":
+                item = self.action_queue.get_nowait()
+                if isinstance(item, tuple):
+                    action = item[0]
+                    if action == "jot":
+                        quote = item[1] if len(item) > 1 else ""
+                        context = item[2] if len(item) > 2 else {}
+                        self.jot_window.show(quote=quote, context=context)
+                    elif action == "capture":
+                        self.capture_tool.start()
+                elif item == "jot":
                     self.jot_window.show()
-                elif action == "capture":
+                elif item == "capture":
                     self.capture_tool.start()
         except Exception as e:
             print(f"[Queue Error] {e}")
@@ -123,7 +132,9 @@ class OmniCaptureApp:
         print(f"[OmniCapture] 本地核心服务已启动: http://{host}:{port}")
 
     def trigger_quick_jot(self):
-        self.action_queue.put("jot")
+        ctx = get_foreground_context()
+        quote = capture_selected_text()
+        self.action_queue.put(("jot", quote, ctx))
 
     def trigger_screen_capture(self):
         self.action_queue.put("capture")

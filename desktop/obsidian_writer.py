@@ -47,28 +47,105 @@ class ObsidianWriter:
                 f.write(header)
         return daily_file
 
-    def save_quick_jot(self, text: str, tags: list = None, images: list = None):
-        """Append a quick jot to today's daily note or create a card."""
+    def _write_to_daily_file(self, content_block: str):
+        """将内容块智能写入今日日记，支持锚点二级标题归档与普通追加"""
+        daily_file = self._get_today_daily_file()
+        anchor = self.config.get("daily_anchor_heading", "").strip()
+        
+        if not anchor:
+            with open(daily_file, "a", encoding="utf-8") as f:
+                f.write("\n" + content_block.strip() + "\n\n---\n")
+            return daily_file
+
+        with open(daily_file, "r", encoding="utf-8") as f:
+            file_text = f.read()
+
+        if anchor not in file_text:
+            new_text = file_text.rstrip() + f"\n\n{anchor}\n\n" + content_block.strip() + "\n\n---\n"
+        else:
+            # 找到锚点标题后的位置，追加在该 section 末尾（在下一个一级/二级标题前）
+            idx = file_text.find(anchor)
+            after_heading = idx + len(anchor)
+            lines = file_text[after_heading:].split("\n")
+            insert_offset = len(file_text)
+            curr_pos = after_heading
+
+            for line in lines:
+                s_line = line.strip()
+                if (s_line.startswith("# ") or s_line.startswith("## ")) and not s_line.startswith(anchor):
+                    insert_offset = curr_pos
+                    break
+                curr_pos += len(line) + 1
+
+            prefix = file_text[:insert_offset].rstrip()
+            suffix = file_text[insert_offset:].lstrip("\r\n")
+            if suffix:
+                new_text = prefix + "\n\n" + content_block.strip() + "\n\n" + suffix
+            else:
+                new_text = prefix + "\n\n" + content_block.strip() + "\n"
+
+        with open(daily_file, "w", encoding="utf-8") as f:
+            f.write(new_text)
+
+        return daily_file
+
+    def save_quick_jot(self, text: str, tags: list = None, images: list = None, quote: str = "", context: dict = None):
+        """双轨自适应智能沉淀：支持思考、屏幕划词引用、截图附件与前台来源溯源"""
         with _lock:
             now = datetime.now()
             time_str = now.strftime("%H:%M:%S")
             tags = tags or []
             tag_str = " ".join([f"#{t.lstrip('#')}" for t in tags if t])
             
-            lines = [f"\n### 💡 {time_str} 闪念速记 {tag_str}".strip()]
-            if text:
-                lines.append(text.strip())
-            
+            clean_text = (text or "").strip()
+            is_todo = clean_text.startswith("- [ ]") or clean_text.startswith("- [x]")
+
+            if is_todo:
+                title_line = f"### {time_str} 📋 待办闪记 {tag_str}".strip()
+            elif quote:
+                title_line = f"### {time_str} 💡 摘录与灵感思考 {tag_str}".strip()
+            else:
+                title_line = f"### {time_str} 💡 随手灵感 {tag_str}".strip()
+
+            lines = [title_line]
+
+            # 1. 思考内容
+            if clean_text:
+                if is_todo:
+                    lines.append(clean_text)
+                else:
+                    lines.append(f"- **思考心流**：{clean_text}")
+
+            # 2. 屏幕划词摘录 Callout
+            if quote and quote.strip():
+                quote_lines = quote.strip().split("\n")
+                formatted_quote = "\n> ".join(quote_lines)
+                lines.append(f"> [!quote] 选中文本摘录\n> {formatted_quote}")
+
+            # 3. 附带图片
             if images:
                 for img_rel in images:
-                    lines.append(f"\n![[{img_rel}]]")
-            
-            lines.append("\n---\n")
-            content_to_append = "\n".join(lines)
+                    lines.append(f"> 附带截图: ![[{img_rel}]]")
 
-            daily_file = self._get_today_daily_file()
-            with open(daily_file, "a", encoding="utf-8") as f:
-                f.write(content_to_append)
+            # 4. 前台来源自动追溯 (乔木核心亮点)
+            if context:
+                app_name = context.get("app", "")
+                src_title = context.get("title", "")
+                src_url = context.get("url", "")
+                
+                if src_title or app_name or src_url:
+                    if src_url and src_title:
+                        src_str = f"[{src_title}]({src_url})"
+                    elif src_title:
+                        src_str = src_title
+                    else:
+                        src_str = src_url or app_name
+
+                    app_str = f" (来自 {app_name})" if app_name and app_name not in src_str else ""
+                    lines.append(f"- 来源出处: {src_str}{app_str}")
+
+            content_block = "\n".join(lines)
+            daily_file = self._write_to_daily_file(content_block)
             
             return {
                 "status": "success",
